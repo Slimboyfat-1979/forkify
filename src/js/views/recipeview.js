@@ -129,4 +129,3 @@ class RecipeView {
 
 export default new RecipeView();
 
-//30.34

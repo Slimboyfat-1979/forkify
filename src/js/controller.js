@@ -45,3 +45,6 @@ const controlRecipes = async function () {
 
 window.addEventListener('hashchange', controlRecipes);
 window.addEventListener('load', controlRecipes);
+
+
+//304 30.34
