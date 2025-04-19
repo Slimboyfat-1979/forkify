@@ -747,15 +747,12 @@ var _webImmediateJs = require("core-js/modules/web.immediate.js");
 var _modelJs = require("./model.js");
 var _recipeviewJs = require("./views/recipeview.js");
 var _recipeviewJsDefault = parcelHelpers.interopDefault(_recipeviewJs);
+var _searchViewJs = require("./views/searchView.js");
+var _searchViewJsDefault = parcelHelpers.interopDefault(_searchViewJs);
 var _regeneratorRuntime = require("regenerator-runtime");
-const recipeContainer = document.querySelector('.recipe');
-// NEW API URL (instead of the one shown in the video)
-// https://forkify-api.jonas.io
-///////////////////////////////////////
 const controlRecipes = async function() {
     try {
         const id = window.location.hash.slice(1);
-        console.log(id);
         if (!id) return;
         (0, _recipeviewJsDefault.default).renderSpinner();
         // 1. Loading Recipe
@@ -767,12 +764,24 @@ const controlRecipes = async function() {
         (0, _recipeviewJsDefault.default).renderError();
     }
 };
+const controlSearchResults = async function() {
+    //1. Get search query
+    const query = (0, _searchViewJsDefault.default).getQuery();
+    if (!query) return;
+    try {
+        //2. Load search results
+        await _modelJs.loadSearchResults(query);
+        //3. Render results
+        console.log(_modelJs.state.search.results);
+    } catch (err) {}
+};
 const init = function() {
     (0, _recipeviewJsDefault.default).addHandlerRender(controlRecipes);
+    (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
 };
 init();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","core-js/modules/esnext.array.last-index.js":"heX1j","core-js/modules/esnext.array.last-item.js":"gd73s","core-js/modules/esnext.composite-key.js":"cyPSH","core-js/modules/esnext.composite-symbol.js":"hvYja","core-js/modules/esnext.map.delete-all.js":"emugi","core-js/modules/esnext.map.every.js":"e7ps6","core-js/modules/esnext.map.filter.js":"d0o5v","core-js/modules/esnext.map.find.js":"6ZT7N","core-js/modules/esnext.map.find-key.js":"5ArCj","core-js/modules/esnext.map.from.js":"IhzBp","core-js/modules/esnext.map.includes.js":"5iTFq","core-js/modules/esnext.map.key-by.js":"aosTF","core-js/modules/esnext.map.key-of.js":"cL0NY","core-js/modules/esnext.map.map-keys.js":"9YPg4","core-js/modules/esnext.map.map-values.js":"hNjM7","core-js/modules/esnext.map.merge.js":"iYKu2","core-js/modules/esnext.map.of.js":"40OSz","core-js/modules/esnext.map.reduce.js":"2GWf0","core-js/modules/esnext.map.some.js":"dvWMT","core-js/modules/esnext.map.update.js":"cgc1b","core-js/modules/esnext.math.clamp.js":"37JTO","core-js/modules/esnext.math.deg-per-rad.js":"iUfUE","core-js/modules/esnext.math.degrees.js":"66FvZ","core-js/modules/esnext.math.fscale.js":"lDpNf","core-js/modules/esnext.math.iaddh.js":"c4YW7","core-js/modules/esnext.math.imulh.js":"6AkYw","core-js/modules/esnext.math.isubh.js":"k7ab2","core-js/modules/esnext.math.rad-per-deg.js":"8JaUN","core-js/modules/esnext.math.radians.js":"3zsHQ","core-js/modules/esnext.math.scale.js":"7IiLE","core-js/modules/esnext.math.seeded-prng.js":"8qk3B","core-js/modules/esnext.math.signbit.js":"9JYYX","core-js/modules/esnext.math.umulh.js":"kzWcO","core-js/modules/esnext.number.from-string.js":"jThYh","core-js/modules/esnext.observable.js":"aYLNs","core-js/modules/esnext.promise.try.js":"izUpR","core-js/modules/esnext.reflect.define-metadata.js":"azsYD","core-js/modules/esnext.reflect.delete-metadata.js":"1ynAE","core-js/modules/esnext.reflect.get-metadata.js":"ireD4","core-js/modules/esnext.reflect.get-metadata-keys.js":"6H5Yu","core-js/modules/esnext.reflect.get-own-metadata.js":"fKYIt","core-js/modules/esnext.reflect.get-own-metadata-keys.js":"6BwRm","core-js/modules/esnext.reflect.has-metadata.js":"5qnij","core-js/modules/esnext.reflect.has-own-metadata.js":"elxsb","core-js/modules/esnext.reflect.metadata.js":"k9zLU","core-js/modules/esnext.set.add-all.js":"jLtM1","core-js/modules/esnext.set.delete-all.js":"8uQ7T","core-js/modules/esnext.set.difference.js":"8jZOK","core-js/modules/esnext.set.every.js":"jzcwx","core-js/modules/esnext.set.filter.js":"g2PlW","core-js/modules/esnext.set.find.js":"3hj5Z","core-js/modules/esnext.set.from.js":"7SFu2","core-js/modules/esnext.set.intersection.js":"6dAmL","core-js/modules/esnext.set.is-disjoint-from.js":"lHSvu","core-js/modules/esnext.set.is-subset-of.js":"fxKfu","core-js/modules/esnext.set.is-superset-of.js":"d6sbe","core-js/modules/esnext.set.join.js":"jWiap","core-js/modules/esnext.set.map.js":"6elgT","core-js/modules/esnext.set.of.js":"f8vO9","core-js/modules/esnext.set.reduce.js":"j8JzT","core-js/modules/esnext.set.some.js":"9g7g6","core-js/modules/esnext.set.symmetric-difference.js":"ibCuk","core-js/modules/esnext.set.union.js":"gn6qA","core-js/modules/esnext.string.at.js":"77RpS","core-js/modules/esnext.string.code-points.js":"aURiW","core-js/modules/esnext.symbol.dispose.js":"gz6hK","core-js/modules/esnext.symbol.observable.js":"39Led","core-js/modules/esnext.symbol.pattern-match.js":"hCqhl","core-js/modules/esnext.weak-map.delete-all.js":"jUK9z","core-js/modules/esnext.weak-map.from.js":"fzmZB","core-js/modules/esnext.weak-map.of.js":"bs9yE","core-js/modules/esnext.weak-set.add-all.js":"2ondH","core-js/modules/esnext.weak-set.delete-all.js":"3x5PW","core-js/modules/esnext.weak-set.from.js":"jRnX9","core-js/modules/esnext.weak-set.of.js":"9E6IZ","core-js/modules/web.immediate.js":"bzsBv","regenerator-runtime":"f6ot0","./model.js":"3QBkH","./views/recipeview.js":"6kxfp"}],"jnFvT":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","core-js/modules/esnext.array.last-index.js":"heX1j","core-js/modules/esnext.array.last-item.js":"gd73s","core-js/modules/esnext.composite-key.js":"cyPSH","core-js/modules/esnext.composite-symbol.js":"hvYja","core-js/modules/esnext.map.delete-all.js":"emugi","core-js/modules/esnext.map.every.js":"e7ps6","core-js/modules/esnext.map.filter.js":"d0o5v","core-js/modules/esnext.map.find.js":"6ZT7N","core-js/modules/esnext.map.find-key.js":"5ArCj","core-js/modules/esnext.map.from.js":"IhzBp","core-js/modules/esnext.map.includes.js":"5iTFq","core-js/modules/esnext.map.key-by.js":"aosTF","core-js/modules/esnext.map.key-of.js":"cL0NY","core-js/modules/esnext.map.map-keys.js":"9YPg4","core-js/modules/esnext.map.map-values.js":"hNjM7","core-js/modules/esnext.map.merge.js":"iYKu2","core-js/modules/esnext.map.of.js":"40OSz","core-js/modules/esnext.map.reduce.js":"2GWf0","core-js/modules/esnext.map.some.js":"dvWMT","core-js/modules/esnext.map.update.js":"cgc1b","core-js/modules/esnext.math.clamp.js":"37JTO","core-js/modules/esnext.math.deg-per-rad.js":"iUfUE","core-js/modules/esnext.math.degrees.js":"66FvZ","core-js/modules/esnext.math.fscale.js":"lDpNf","core-js/modules/esnext.math.iaddh.js":"c4YW7","core-js/modules/esnext.math.imulh.js":"6AkYw","core-js/modules/esnext.math.isubh.js":"k7ab2","core-js/modules/esnext.math.rad-per-deg.js":"8JaUN","core-js/modules/esnext.math.radians.js":"3zsHQ","core-js/modules/esnext.math.scale.js":"7IiLE","core-js/modules/esnext.math.seeded-prng.js":"8qk3B","core-js/modules/esnext.math.signbit.js":"9JYYX","core-js/modules/esnext.math.umulh.js":"kzWcO","core-js/modules/esnext.number.from-string.js":"jThYh","core-js/modules/esnext.observable.js":"aYLNs","core-js/modules/esnext.promise.try.js":"izUpR","core-js/modules/esnext.reflect.define-metadata.js":"azsYD","core-js/modules/esnext.reflect.delete-metadata.js":"1ynAE","core-js/modules/esnext.reflect.get-metadata.js":"ireD4","core-js/modules/esnext.reflect.get-metadata-keys.js":"6H5Yu","core-js/modules/esnext.reflect.get-own-metadata.js":"fKYIt","core-js/modules/esnext.reflect.get-own-metadata-keys.js":"6BwRm","core-js/modules/esnext.reflect.has-metadata.js":"5qnij","core-js/modules/esnext.reflect.has-own-metadata.js":"elxsb","core-js/modules/esnext.reflect.metadata.js":"k9zLU","core-js/modules/esnext.set.add-all.js":"jLtM1","core-js/modules/esnext.set.delete-all.js":"8uQ7T","core-js/modules/esnext.set.difference.js":"8jZOK","core-js/modules/esnext.set.every.js":"jzcwx","core-js/modules/esnext.set.filter.js":"g2PlW","core-js/modules/esnext.set.find.js":"3hj5Z","core-js/modules/esnext.set.from.js":"7SFu2","core-js/modules/esnext.set.intersection.js":"6dAmL","core-js/modules/esnext.set.is-disjoint-from.js":"lHSvu","core-js/modules/esnext.set.is-subset-of.js":"fxKfu","core-js/modules/esnext.set.is-superset-of.js":"d6sbe","core-js/modules/esnext.set.join.js":"jWiap","core-js/modules/esnext.set.map.js":"6elgT","core-js/modules/esnext.set.of.js":"f8vO9","core-js/modules/esnext.set.reduce.js":"j8JzT","core-js/modules/esnext.set.some.js":"9g7g6","core-js/modules/esnext.set.symmetric-difference.js":"ibCuk","core-js/modules/esnext.set.union.js":"gn6qA","core-js/modules/esnext.string.at.js":"77RpS","core-js/modules/esnext.string.code-points.js":"aURiW","core-js/modules/esnext.symbol.dispose.js":"gz6hK","core-js/modules/esnext.symbol.observable.js":"39Led","core-js/modules/esnext.symbol.pattern-match.js":"hCqhl","core-js/modules/esnext.weak-map.delete-all.js":"jUK9z","core-js/modules/esnext.weak-map.from.js":"fzmZB","core-js/modules/esnext.weak-map.of.js":"bs9yE","core-js/modules/esnext.weak-set.add-all.js":"2ondH","core-js/modules/esnext.weak-set.delete-all.js":"3x5PW","core-js/modules/esnext.weak-set.from.js":"jRnX9","core-js/modules/esnext.weak-set.of.js":"9E6IZ","core-js/modules/web.immediate.js":"bzsBv","regenerator-runtime":"f6ot0","./model.js":"3QBkH","./views/recipeview.js":"6kxfp","./views/searchView.js":"kbE4Z"}],"jnFvT":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -6939,15 +6948,20 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "loadRecipe", ()=>loadRecipe);
+parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
 var _regeneratorRuntime = require("regenerator-runtime");
 var _config = require("./config");
 var _helpers = require("./helpers");
 const state = {
-    recipe: {}
+    recipe: {},
+    search: {
+        query: '',
+        results: []
+    }
 };
 const loadRecipe = async function(id) {
     try {
-        const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}/${id}`);
+        const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}${id}`);
         const { recipe } = data.data;
         state.recipe = {
             id: recipe.id,
@@ -6965,13 +6979,31 @@ const loadRecipe = async function(id) {
         throw err;
     }
 };
+const loadSearchResults = async function(query) {
+    try {
+        state.search.query = query;
+        const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}?search=${query}`);
+        console.log(data);
+        state.search.results = data.data.recipes.map((rec)=>{
+            return {
+                id: rec.id,
+                title: rec.title,
+                publisher: rec.publisher,
+                image: rec.image_url
+            };
+        });
+        console.log(state.search.results);
+    } catch (err) {
+        throw err;
+    }
+};
 
 },{"regenerator-runtime":"f6ot0","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./config":"2hPh4","./helpers":"7nL9P"}],"2hPh4":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "API_URL", ()=>API_URL);
 parcelHelpers.export(exports, "TIMEOUT_SEC", ()=>TIMEOUT_SEC);
-const API_URL = 'https://forkify-api.jonas.io/api/v2/recipes';
+const API_URL = 'https://forkify-api.jonas.io/api/v2/recipes/';
 const TIMEOUT_SEC = 10;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"7nL9P":[function(require,module,exports,__globalThis) {
@@ -7258,6 +7290,28 @@ function returnStrings(den, num, integer, type) {
     else return `${type}${integer} ${num}/${den}`; //If there's an integer and a fraction return both.
 }
 
-},{}]},["5DuvQ","7dWZ8"], "7dWZ8", "parcelRequire3a11", {}, "./", "/")
+},{}],"kbE4Z":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class SearchView {
+    #parentEl = document.querySelector('.search');
+    getQuery() {
+        const query = this.#parentEl.querySelector('.search__field').value;
+        this.#clearInput();
+        return query;
+    }
+    #clearInput() {
+        this.#parentEl.querySelector('.search__field').value = '';
+    }
+    addHandlerSearch(handler) {
+        this.#parentEl.addEventListener('submit', function(e) {
+            e.preventDefault();
+            handler();
+        });
+    }
+}
+exports.default = new SearchView();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["5DuvQ","7dWZ8"], "7dWZ8", "parcelRequire3a11", {}, "./", "/")
 
 //# sourceMappingURL=forkify.4a59a05f.js.map
