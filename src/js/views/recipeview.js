@@ -4,18 +4,20 @@ import fracty from 'fracty';
 class RecipeView {
   #parentEl = document.querySelector('.recipe');
   #data;
+  #errorMessage = 'We could not find that recipe, please try another.';
+  #message = '';
   render(data) {
     this.#data = data;
     const markup = this.#generateMarkup();
     this.#clear();
-    this.#parentEl.insertAdjacentHTML('afterbegin', markup)
+    this.#parentEl.insertAdjacentHTML('afterbegin', markup);
   }
 
   #clear() {
     this.#parentEl.innerHTML = '';
   }
 
-  renderSpinner = function () {
+  renderSpinner() {
     const markUp = `
       <div class="spinner">
             <svg>
@@ -23,9 +25,46 @@ class RecipeView {
             </svg>
           </div>
       `;
-    this.#parentEl.innerHTML = '';
+    this.#clear();
     this.#parentEl.insertAdjacentHTML('afterbegin', markUp);
   };
+
+  renderError(message = this.#errorMessage) {
+    const markUp = `
+    <div class="error">
+            <div>
+              <svg>
+                <use href="${icons}#icon-alert-triangle"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+          </div>
+    `
+    this.#clear();
+    this.#parentEl.insertAdjacentHTML('afterbegin', markUp)
+  }
+
+  renderMessage(message = this.#message) {
+    const markUp = `
+     <div class="message">
+          <div>
+            <svg>
+              <use href="${icons}#icon-smile"></use>
+            </svg>
+          </div>
+          <p>Start by searching for a recipe or an ingredient. Have fun!</p>
+        </div>
+    `
+    this.#clear();
+    this.#parentEl.insertAdjacentHTML('afterbegin', markUp)
+
+  }
+
+  addHandlerRender(handler) {
+    ['hashchange', 'load'].forEach(ev =>
+      window.addEventListener(ev, handler)
+    );
+  }
 
   #generateMarkup() {
     return `
@@ -113,13 +152,15 @@ class RecipeView {
         `;
   }
 
-  #generateIngredient(ing){
-        return `
+  #generateIngredient(ing) {
+    return `
         <li class="recipe__ingredient">
         <svg class="recipe__icon">
           <use href="${icons}#icon-check"></use>
         </svg>
-        <div class="recipe__quantity">${ing.quantity ? fracty(ing.quantity) : ''}</div>
+        <div class="recipe__quantity">${
+          ing.quantity ? fracty(ing.quantity) : ''
+        }</div>
         <div class="recipe__description">
           <span class="recipe__unit">${ing.unit}</span>
           ${ing.description}
@@ -130,4 +171,3 @@ class RecipeView {
 }
 
 export default new RecipeView();
-
